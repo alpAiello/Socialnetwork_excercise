@@ -1,22 +1,17 @@
-const spicedPg from "spiced-pg";
+const spicedPg = require("spiced-pg");
 const dbURL = "postgres://alessandroaiello@localhost:5432/social-network";
-const db = spicedPg(dbURL)
+const db = spicedPg(dbURL);
 
-exports.addUser = (username, firstName, lastName, email, hashedPassword)=>{
-	return db.query(`
+exports.register = (username, firstname, lastname, email, hashed_password) => {
+	return db.query(
+		`
 		INSERT INTO 
-			users
+			users (username, firstname, lastname, email, hashed_password)
 		VALUES
-			$1,$2,$3,$4,$5
+			($1,$2,$3,$4,$5)
 		RETURNING
 			*;
-		, [username,firstname,lastname,email,password]`)
-}
-
-
-id serial unique,
-		 varchar(50),
-		 varchar(50),
-		 varchar(50),
-		 varchar(50),
-		 varchar(50)
+		`,
+		[username, firstname, lastname, email, hashed_password]
+	);
+};
