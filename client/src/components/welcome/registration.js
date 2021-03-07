@@ -26,7 +26,18 @@ class Registration extends Component {
 				email,
 				password,
 			})
-			.then((response) => console.log("got response", response));
+			.then((response) => {
+				if (
+					response.data.registrationMessage ==
+					"registration successfully"
+				) {
+					location.replace("/");
+				} else {
+					this.setState({
+						[this.errorMessage]: response.data.registrationMessage,
+					});
+				}
+			});
 	};
 
 	render() {

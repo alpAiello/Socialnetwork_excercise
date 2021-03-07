@@ -2,6 +2,13 @@ const express = require("express");
 const router = express.Router();
 const db = require("../sql/database.js");
 const bcrypt = require("../bcrypt");
+const cookieSession = require("cookie-session");
+router.use(
+	cookieSession({
+		secret: `Keine Verbesserung ist zu klein oder geringfügig, als dass man sie nicht durchführen sollte.`,
+		maxAge: 1000 * 60 * 60 * 24 * 7 * 6,
+	})
+);
 
 router.post("/register", (req, res) => {
 	console.log(req.body);
@@ -16,6 +23,7 @@ router.post("/register", (req, res) => {
 					const userData = dbReturnData.rows[0];
 					console.log(dbReturnData.rows[0]);
 					const {
+						id,
 						username,
 						firstname,
 						lastname,
@@ -24,6 +32,8 @@ router.post("/register", (req, res) => {
 					} = userData;
 					console.log(
 						"The user was added successfully",
+						"data:",
+						id,
 						"data:",
 						username,
 						"data:",
@@ -35,7 +45,14 @@ router.post("/register", (req, res) => {
 						"data:",
 						hashed_password
 					);
-					req.session.user = userData;
+					req.session.user = {
+						id: id,
+						username: username,
+						firstname: firstname,
+						lastname: lastname,
+						email: email,
+						hashed_password: hashed_password,
+					};
 					res.json({
 						registrationMessage: "registration successfully",
 					});

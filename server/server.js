@@ -26,13 +26,17 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
 app.use("/api/auth", auth);
 
-app.get("*", function (req, res) {
-	// if (!req.session.user) {
-	// 	res.redirect(302, "/welcome");
-	// } else {
-	// 	res.redirect(302, "/");
+app.get("/welcome", (req, res) => {
 	res.sendFile(path.join(__dirname, "..", "client", "index.html"));
-	// }
+});
+
+app.get("*", (req, res) => {
+	// console.log(req.session.user[id]);
+	if (req.session.user.id) {
+		res.sendFile(path.join(__dirname, "..", "client", "index.html"));
+	} else {
+		res.redirect(302, "/welcome");
+	}
 });
 
 app.listen(process.env.PORT || 3001, function () {
