@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { Button, Input, InputLabel, FormControl } from "@material-ui/core";
 import axios from "axios";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
 class Registration extends Component {
 	constructor(props) {
@@ -43,47 +45,67 @@ class Registration extends Component {
 	render() {
 		return (
 			<div>
-				<label htmlFor="username">Username</label>
-				<input
-					onChange={this.changeState}
-					value={this.state.username}
-					type="text"
-					id="username"
-					name="username"
-				/>
-				<label htmlFor="firstname">Firstname</label>
-				<input
-					onChange={this.changeState}
-					value={this.state.firstname}
-					type="text"
-					id="firstname"
-					name="firstname"
-				/>
-				<label htmlFor="lastname">Lastname</label>
-				<input
-					onChange={this.changeState}
-					value={this.state.lastname}
-					type="text"
-					id="lastname"
-					name="lastname"
-				/>
-				<label htmlFor="email">E-Mail</label>
-				<input
-					onChange={this.changeState}
-					value={this.state.email}
-					type="text"
-					id="email"
-					name="email"
-				/>
-				<label htmlFor="password">Password</label>
-				<input
-					onChange={this.changeState}
-					value={this.state.password}
-					type="text"
-					id="password"
-					name="password"
-				/>
-				<button onClick={this.submitRegistration}>submit</button>
+				<FormControl>
+					<InputLabel htmlFor="username">Username</InputLabel>
+					<Input
+						color="primary"
+						onChange={this.changeState}
+						value={this.state.username}
+						type="text"
+						id="username"
+						name="username"
+					/>
+				</FormControl>
+				<FormControl>
+					<InputLabel htmlFor="firstname">Firstname</InputLabel>
+					<Input
+						color="primary"
+						onChange={this.changeState}
+						value={this.state.firstname}
+						type="text"
+						id="firstname"
+						name="firstname"
+					/>
+				</FormControl>
+				<FormControl>
+					<InputLabel htmlFor="lastname">Lastname</InputLabel>
+					<Input
+						color="primary"
+						onChange={this.changeState}
+						value={this.state.lastname}
+						type="text"
+						id="lastname"
+						name="lastname"
+					/>
+				</FormControl>
+				<FormControl>
+					<InputLabel htmlFor="email">E-Mail</InputLabel>
+					<Input
+						color="primary"
+						onChange={this.changeState}
+						value={this.state.email}
+						type="email"
+						id="email"
+						name="email"
+					/>
+				</FormControl>
+				<FormControl>
+					<InputLabel htmlFor="password">Password</InputLabel>
+					<Input
+						type="password"
+						autoComplete="current-password"
+						variant="outlined"
+						color="primary"
+						onChange={this.changeState}
+						value={this.state.password}
+						type="password"
+						id="password"
+						name="password"
+					/>
+				</FormControl>
+				<Button variant="outlined" onClick={this.submitRegistration}>
+					submit
+				</Button>
 			</div>
 		);
 	}
