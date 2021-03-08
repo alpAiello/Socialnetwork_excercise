@@ -1,10 +1,14 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import Registration from "./registration";
 
 class Welcome extends Component {
-	render() {
-		return <Registration></Registration>;
-	}
+    constructor (props) {super(props);}
+
+    render () {
+        return (
+            <Registration></Registration>
+        );
+    }
 }
 
 export default Welcome;

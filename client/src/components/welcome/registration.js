@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { Button, Input, InputLabel, FormControl } from "@material-ui/core";
-import axios from "axios";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import Grid from "@material-ui/core/Grid";
+import axios from "../../superAxios.js";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 class Registration extends Component {
 	constructor(props) {
@@ -14,23 +15,28 @@ class Registration extends Component {
 			password: "",
 		};
 	}
-	changeState = (event) => {
+	changeState (event) {
 		console.log("hello change");
 		this.setState({ [event.target.name]: event.target.value });
-	};
-	submitRegistration = (event) => {
+	}
+
+	submitRegistration () {
 		const { username, firstname, lastname, email, password } = this.state;
 		axios
-			.post("/api/auth/register", {
-				username,
-				firstname,
-				lastname,
-				email,
-				password,
-			})
+			.post(
+				"/api/auth/register",
+				{
+					username,
+					firstname,
+					lastname,
+					email,
+					password,
+				},
+				{ xsrfHeaderName: "csrf-token", xsrfCookieName: "token" }
+			)
 			.then((response) => {
 				if (
-					response.data.registrationMessage ==
+					response.data.registrationMessage ===
 					"registration successfully"
 				) {
 					location.replace("/");
@@ -40,16 +46,17 @@ class Registration extends Component {
 					});
 				}
 			});
-	};
+	}
 
 	render() {
 		return (
-			<div>
+			<Grid container width={4} direction="column" spacing={4}>
+				<CssBaseline />
 				<FormControl>
 					<InputLabel htmlFor="username">Username</InputLabel>
 					<Input
 						color="primary"
-						onChange={this.changeState}
+						onChange={(event)=>this.changeState(event)}
 						value={this.state.username}
 						type="text"
 						id="username"
@@ -60,7 +67,7 @@ class Registration extends Component {
 					<InputLabel htmlFor="firstname">Firstname</InputLabel>
 					<Input
 						color="primary"
-						onChange={this.changeState}
+						onChange={(event)=>this.changeState(event)}
 						value={this.state.firstname}
 						type="text"
 						id="firstname"
@@ -71,7 +78,7 @@ class Registration extends Component {
 					<InputLabel htmlFor="lastname">Lastname</InputLabel>
 					<Input
 						color="primary"
-						onChange={this.changeState}
+						onChange={(event)=>this.changeState(event)}
 						value={this.state.lastname}
 						type="text"
 						id="lastname"
@@ -82,7 +89,7 @@ class Registration extends Component {
 					<InputLabel htmlFor="email">E-Mail</InputLabel>
 					<Input
 						color="primary"
-						onChange={this.changeState}
+						onChange={(event)=>this.changeState(event)}
 						value={this.state.email}
 						type="email"
 						id="email"
@@ -96,17 +103,16 @@ class Registration extends Component {
 						autoComplete="current-password"
 						variant="outlined"
 						color="primary"
-						onChange={this.changeState}
+						onChange={(event)=>this.changeState(event)}
 						value={this.state.password}
-						type="password"
 						id="password"
 						name="password"
 					/>
 				</FormControl>
-				<Button variant="outlined" onClick={this.submitRegistration}>
+				<Button variant="outlined" onClick={() => this.submitRegistration()}>
 					submit
 				</Button>
-			</div>
+			</Grid>
 		);
 	}
 }

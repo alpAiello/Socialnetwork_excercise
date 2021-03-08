@@ -2,7 +2,7 @@ const spicedPg = require("spiced-pg");
 const dbURL = "postgres://alessandroaiello@localhost:5432/social-network";
 const db = spicedPg(dbURL);
 
-exports.register = (username, firstname, lastname, email, hashed_password) => {
+exports.addUser = (username, firstname, lastname, email, hashed_password) => {
 	return db.query(
 		`
 		INSERT INTO 
@@ -13,5 +13,19 @@ exports.register = (username, firstname, lastname, email, hashed_password) => {
 			*;
 		`,
 		[username, firstname, lastname, email, hashed_password]
+	);
+};
+
+exports.getUserByEmail = (email) => {
+	return db.query(
+		`SELECT * FROM users WHERE email = $1`,
+		[email]
+	);
+};
+
+exports.getUserByUsername = (username) => {
+	return db.query(
+		`SELECT * FROM users WHERE username = $1`,
+		[username]
 	);
 };
