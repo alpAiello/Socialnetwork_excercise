@@ -6,7 +6,7 @@ const cookieSession = require("cookie-session");
 router.use(
     cookieSession({
         secret: `Keine Verbesserung ist zu klein oder geringfügig, als dass man sie nicht durchführen sollte.`,
-        maxAge: 1000 * 60 * 60 * 24 * 7 * 6
+        maxAge: 1000 * 60 * 60 * 24 * 7 * 6,
     })
 );
 
@@ -28,7 +28,7 @@ router.post("/register", (req, res) => {
                         firstname,
                         lastname,
                         email,
-                        hashed_password
+                        hashed_password,
                     } = userData;
                     console.log(
                         "The user was added successfully",
@@ -51,29 +51,25 @@ router.post("/register", (req, res) => {
                         firstname: firstname,
                         lastname: lastname,
                         email: email,
-                        hashed_password: hashed_password
+                        hashed_password: hashed_password,
                     };
                     res.json({
                         success: true,
-                        registrationMessage: "registration successfully"
+                        registrationMessage: "registration successfully",
                     });
                 })
                 .catch((err) => {
-                    console.log(
-                        "must make a real error message here !!!!",
-                        err
-                    );
                     res.json({
                         success: false,
-                        registrationMessage: "registration failed"
+                        registrationMessage: "registration failed",
                     });
                 });
         })
         .catch((err) => {
-            console.log("must make a real error message here !!!!", err);
             res.json({
                 success: false,
-                registrationMessage: "Password encryption failed" });
+                registrationMessage: "Password encryption failed",
+            });
         });
 });
 
@@ -90,26 +86,28 @@ router.post("/login", (req, res) => {
                         req.session.user = currentUser[0];
                         res.json({
                             success: true,
-                            loginMessage: "login successful"
+                            loginMessage: "login successful",
                         });
                     } else {
                         return res.json({
                             success: false,
-                            loginMessage: "Please try again! Email or password are incorrect."
+                            loginMessage:
+                                "Please try again! Email or password are incorrect.",
                         });
                     }
                 });
             } else {
                 return res.json({
                     success: false,
-                    loginMessage: "Please try again! Email or password are incorrect."
+                    loginMessage:
+                        "Please try again! Email or password are incorrect.",
                 });
             }
         });
     } else {
         return res.json({
             success: false,
-            loginMessage: "Please fill out both fields"
+            loginMessage: "Please fill out the field",
         });
     }
 });
