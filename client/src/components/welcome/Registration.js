@@ -31,8 +31,7 @@ class Registration extends Component {
 					lastname,
 					email,
 					password,
-				},
-				{ xsrfHeaderName: "csrf-token", xsrfCookieName: "token" }
+				}
 			)
 			.then((response) => {
 				if (

@@ -43,11 +43,11 @@ app.get("/welcome", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-	// console.log(req.session.user[id]);
-	if (typeof req.session.user !== undefined) {
-		res.sendFile(path.join(__dirname, "..", "client", "index.html"));
-	} else {
+	console.log(req.session.user);
+	if (req.session.user === undefined) {
 		res.redirect(302, "/welcome");
+	} else {
+		res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 	}
 });
 

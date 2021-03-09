@@ -54,6 +54,7 @@ router.post("/register", (req, res) => {
                         hashed_password: hashed_password
                     };
                     res.json({
+                        success: true,
                         registrationMessage: "registration successfully"
                     });
                 })
@@ -63,18 +64,22 @@ router.post("/register", (req, res) => {
                         err
                     );
                     res.json({
+                        success: false,
                         registrationMessage: "registration failed"
                     });
                 });
         })
         .catch((err) => {
             console.log("must make a real error message here !!!!", err);
-            res.json({ registrationMessage: "Password encryption failed" });
+            res.json({
+                success: false,
+                registrationMessage: "Password encryption failed" });
         });
 });
 
 router.post("/login", (req, res) => {
     const { email, password } = req.body;
+    console.log(email, password);
     if (email && password) {
         db.getUserByEmail(email).then((user) => {
             const currentUser = user.rows;
@@ -85,7 +90,7 @@ router.post("/login", (req, res) => {
                         req.session.user = currentUser[0];
                         res.json({
                             success: true,
-                            loginMessage: "login successfully"
+                            loginMessage: "login successful"
                         });
                     } else {
                         return res.json({
