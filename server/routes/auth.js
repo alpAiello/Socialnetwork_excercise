@@ -3,6 +3,8 @@ const router = express.Router();
 const db = require("../sql/database.js");
 const bcrypt = require("../bcrypt");
 const cookieSession = require("cookie-session");
+const cryptoRandomString = require("crypto-random-string");
+
 router.use(
     cookieSession({
         secret: `Keine Verbesserung ist zu klein oder geringfügig, als dass man sie nicht durchführen sollte.`,
@@ -10,67 +12,91 @@ router.use(
     })
 );
 
+router.post("/reset-password", (req, res) => {
+    db.getUserByEmail(req.body.email).then((res) => {
+        if (res.rows[0].length !== 0) {
+            res.json({ success: false });
+        } else {
+            const reset_code = cryptoRandomString({ length: 10 });
+        }
+    });
+});
 router.post("/register", (req, res) => {
     console.log(req.body);
     const { username, firstname, lastname, email, password } = req.body;
-    console.log(username, firstname, lastname, email, password);
-    bcrypt
-        .genHash(password)
-        .then((hashed_password) => {
-            console.log(hashed_password);
-            db.addUser(username, firstname, lastname, email, hashed_password)
-                .then((dbReturnData) => {
-                    const userData = dbReturnData.rows[0];
-                    console.log(dbReturnData.rows[0]);
-                    const {
-                        id,
-                        username,
-                        firstname,
-                        lastname,
-                        email,
-                        hashed_password,
-                    } = userData;
-                    console.log(
-                        "The user was added successfully",
-                        "data:",
-                        id,
-                        "data:",
-                        username,
-                        "data:",
-                        firstname,
-                        "data:",
-                        lastname,
-                        "data:",
-                        email,
-                        "data:",
-                        hashed_password
-                    );
-                    req.session.user = {
-                        id: id,
-                        username: username,
-                        firstname: firstname,
-                        lastname: lastname,
-                        email: email,
-                        hashed_password: hashed_password,
-                    };
-                    res.json({
-                        success: true,
-                        registrationMessage: "registration successfully",
+    if (username && firstname && lastname && email && password) {
+        console.log(username, firstname, lastname, email, password);
+        bcrypt
+            .genHash(password)
+            .then((hashed_password) => {
+                console.log(hashed_password);
+                db.addUser(
+                    username,
+                    firstname,
+                    lastname,
+                    email,
+                    hashed_password
+                )
+                    .then((dbReturnData) => {
+                        const userData = dbReturnData.rows[0];
+                        console.log(dbReturnData.rows[0]);
+                        const {
+                            id,
+                            username,
+                            firstname,
+                            lastname,
+                            email,
+                            hashed_password,
+                        } = userData;
+                        console.log(
+                            "The user was added successfully",
+                            "data:",
+                            id,
+                            "data:",
+                            username,
+                            "data:",
+                            firstname,
+                            "data:",
+                            lastname,
+                            "data:",
+                            email,
+                            "data:",
+                            hashed_password
+                        );
+                        req.session.user = {
+                            id: id,
+                            username: username,
+                            firstname: firstname,
+                            lastname: lastname,
+                            email: email,
+                            hashed_password: hashed_password,
+                        };
+                        res.json({
+                            success: true,
+                            registrationMessage: "registration successfully",
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        res.json({
+                            success: false,
+                            registrationMessage: "registration failed",
+                        });
                     });
-                })
-                .catch((err) => {
-                    res.json({
-                        success: false,
-                        registrationMessage: "registration failed",
-                    });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.json({
+                    success: false,
+                    registrationMessage: "Password encryption failed",
                 });
-        })
-        .catch((err) => {
-            res.json({
-                success: false,
-                registrationMessage: "Password encryption failed",
             });
+    } else {
+        res.json({
+            success: false,
+            registrationMessage: "Please fill out the field",
         });
+    }
 });
 
 router.post("/login", (req, res) => {
@@ -91,16 +117,14 @@ router.post("/login", (req, res) => {
                     } else {
                         return res.json({
                             success: false,
-                            loginMessage:
-                                "Please try again! Email or password are incorrect.",
+                            loginMessage: "Email or password are incorrect.",
                         });
                     }
                 });
             } else {
                 return res.json({
                     success: false,
-                    loginMessage:
-                        "Please try again! Email or password are incorrect.",
+                    loginMessage: "Email or password are incorrect.",
                 });
             }
         });

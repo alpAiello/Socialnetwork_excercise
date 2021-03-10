@@ -16,16 +16,24 @@ exports.addUser = (username, firstname, lastname, email, hashed_password) => {
 	);
 };
 
-exports.getUserByEmail = (email) => {
+exports.addResetCode = (email, reset_code) => {
 	return db.query(
-		`SELECT * FROM users WHERE email = $1`,
-		[email]
+		`
+		INSERT INTO 
+			users (email, reset_code)
+		VALUES
+			($1,$2)
+		RETURNING
+			*;
+		`,
+		[email, reset_code]
 	);
 };
 
+exports.getUserByEmail = (email) => {
+	return db.query(`SELECT * FROM users WHERE email = $1`, [email]);
+};
+
 exports.getUserByUsername = (username) => {
-	return db.query(
-		`SELECT * FROM users WHERE username = $1`,
-		[username]
-	);
+	return db.query(`SELECT * FROM users WHERE username = $1`, [username]);
 };

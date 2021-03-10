@@ -4,7 +4,6 @@ import {
     Input,
     InputLabel,
     FormControl,
-    Container,
     Link,
     FormHelperText,
 } from "@material-ui/core";
@@ -48,9 +47,9 @@ class SignIn extends Component {
 
     render() {
         return (
-            <Container maxWidth="xs">
+            <div className="SignIn">
                 <CssBaseline />
-                <FormControl item>
+                <FormControl>
                     <InputLabel htmlFor="email">E-Mail</InputLabel>
                     <Input
                         color="secondary"
@@ -59,13 +58,13 @@ class SignIn extends Component {
                         type="email"
                         id="email"
                         name="email"
-                        error={!this.state.email && this.state.errorMessage}
+                        error={!this.state.email && !this.state.success}
                     />
                     <FormHelperText error={this.state.email === ""}>
                         {!this.state.email ? this.state.errorMessage : ""}
                     </FormHelperText>
                 </FormControl>
-                <FormControl item>
+                <FormControl>
                     <InputLabel htmlFor="password">Password</InputLabel>
                     <Input
                         type="password"
@@ -76,15 +75,32 @@ class SignIn extends Component {
                         value={this.state.password}
                         id="password"
                         name="password"
-                        error={!this.state.password && this.state.errorMessage}
+                        error={!this.state.password && !this.state.success}
                     />
-                    <FormHelperText error={this.state.password === ""}>
+                    <FormHelperText
+                        error={
+                            this.state.password === "" ||
+                            this.state.errorMessage ===
+                                "Email or password are incorrect."
+                        }
+                    >
                         {!this.state.password ? this.state.errorMessage : ""}
+                        {this.state.errorMessage ===
+                            "Email or password are incorrect." &&
+                        this.state.password
+                            ? this.state.errorMessage
+                            : ""}
                     </FormHelperText>
                 </FormControl>
                 <p>
                     {"no account yet? register "}
                     <Link component={routerLink} to="/">
+                        here
+                    </Link>
+                </p>
+                <p>
+                    {"forgot your password, reset "}
+                    <Link component={routerLink} to="/reset-password">
                         here
                     </Link>
                 </p>
@@ -95,7 +111,7 @@ class SignIn extends Component {
                 >
                     submit
                 </Button>
-            </Container>
+            </div>
         );
     }
 }

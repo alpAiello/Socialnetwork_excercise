@@ -1,4 +1,15 @@
 body {
-	background-color: ghostwhite;
-	color: #ffffff;
+    background-color: ghostwhite;
+}
+.Welcome {
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.SignIn,
+.Registration {
+    display: flex;
+    flex-direction: column;
 }

@@ -57,9 +57,9 @@ class Registration extends Component {
 
 	render() {
 		return (
-			<Container maxWidth="xs">
+			<div className="Registration">
 				<CssBaseline />
-				<FormControl item>
+				<FormControl>
 					<InputLabel htmlFor="username">Username</InputLabel>
 					<Input
 						color="secondary"
@@ -68,12 +68,13 @@ class Registration extends Component {
 						type="text"
 						id="username"
 						name="username"
+						error={!this.state.username && !this.state.success}
 					/>
 					<FormHelperText error={this.state.username === ""}>
 						{!this.state.username ? this.state.errorMessage : ""}
 					</FormHelperText>
 				</FormControl>
-				<FormControl item>
+				<FormControl>
 					<InputLabel htmlFor="firstname">Firstname</InputLabel>
 					<Input
 						color="secondary"
@@ -82,12 +83,13 @@ class Registration extends Component {
 						type="text"
 						id="firstname"
 						name="firstname"
+						error={!this.state.firstname && !this.state.success}
 					/>
 					<FormHelperText error={this.state.firstname === ""}>
 						{!this.state.firstname ? this.state.errorMessage : ""}
 					</FormHelperText>
 				</FormControl>
-				<FormControl item>
+				<FormControl>
 					<InputLabel htmlFor="lastname">Lastname</InputLabel>
 					<Input
 						color="secondary"
@@ -96,12 +98,13 @@ class Registration extends Component {
 						type="text"
 						id="lastname"
 						name="lastname"
+						error={!this.state.lastname && !this.state.success}
 					/>
 					<FormHelperText error={this.state.lastname === ""}>
 						{!this.state.lastname ? this.state.errorMessage : ""}
 					</FormHelperText>
 				</FormControl>
-				<FormControl item>
+				<FormControl>
 					<InputLabel htmlFor="email">E-Mail</InputLabel>
 					<Input
 						color="secondary"
@@ -110,12 +113,13 @@ class Registration extends Component {
 						type="email"
 						id="email"
 						name="email"
+						error={!this.state.email && !this.state.success}
 					/>
 					<FormHelperText error={this.state.email === ""}>
 						{!this.state.email ? this.state.errorMessage : ""}
 					</FormHelperText>
 				</FormControl>
-				<FormControl item>
+				<FormControl>
 					<InputLabel htmlFor="password">Password</InputLabel>
 					<Input
 						type="password"
@@ -126,15 +130,19 @@ class Registration extends Component {
 						value={this.state.password}
 						id="password"
 						name="password"
+						error={!this.state.password && !this.state.success}
 					/>
 					<FormHelperText error={this.state.password === ""}>
 						{!this.state.password ? this.state.errorMessage : ""}
 					</FormHelperText>
 				</FormControl>
-				<p>allready have an account? login </p>
-				<Link component={routerLink} to="/login">
-					here
-				</Link>
+				<p>
+					{"allready have an account? login "}
+					<Link component={routerLink} to="/login">
+						here
+					</Link>
+				</p>
+
 				<Button
 					color="primary"
 					variant="outlined"
@@ -142,7 +150,7 @@ class Registration extends Component {
 				>
 					submit
 				</Button>
-			</Container>
+			</div>
 		);
 	}
 }
