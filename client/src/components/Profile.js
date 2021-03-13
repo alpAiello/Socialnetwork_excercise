@@ -1,20 +1,22 @@
 import { Component } from "react";
-import PicUploader from "./PicUploader";
+import ProfilePic from "./ProfilePic";
+import BioEditor from "./BioEditor";
 
 class Profile extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
     }
-
     render() {
-        const { visibilityHandler } = this.props;
         return (
             <div className="Profile">
-                <img
-                    srcSet={"https://via.placeholder.com/300.png/09f/fff"}
-                    alt=""
-                    onClick={visibilityHandler}
+                {" "}
+                <ProfilePic
+                    profile_picture_url={this.props.profile_picture_url}
+                />
+                <BioEditor
+                    bio={this.props.bio}
+                    bioEditor={this.props.bioEditor}
+                    name={this.props.profileName}
                 />
             </div>
         );

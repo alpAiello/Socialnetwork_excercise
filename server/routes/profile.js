@@ -2,6 +2,30 @@ const express = require("express");
 const router = express.Router();
 const db = require("../sql/database.js");
 const cookieSession = require("cookie-session");
+const path = require("path");
+const uidSafe = require("uid-safe");
+const multer = require("multer");
+
+const diskStorage = multer.diskStorage({
+    destination: (request, file, callback) => {
+        const destinationDirectory =
+            __dirname + "../../../client/public/uploads/profile-pictures";
+        callback(null, destinationDirectory);
+    },
+    filename: (request, file, callback) => {
+        uidSafe(24).then((uuid) => {
+            const originalExtension = path.extname(file.originalname);
+            const filename = uuid + originalExtension;
+            callback(null, filename);
+        });
+    },
+});
+const uploader = multer({
+    limits: {
+        fileSize: 5242880, // = 5MB in bytes
+    },
+    storage: diskStorage,
+});
 
 router.use(
     cookieSession({
@@ -10,8 +34,18 @@ router.use(
     })
 );
 
-router.post("/upload-picture", (req, res) => {
-    res.json(req.body);
+router.post("/upload-picture", uploader.single("file"), (req, res) => {
+    console.log(req.file);
+    console.log(req.session.user.email);
+    db.updatePictureURL(
+        req.session.user.email,
+        "/uploads/profile-pictures/" + req.file.filename
+    )
+        .then((result) => {
+            delete result.rows[0].hashed_password;
+            res.json(result.rows[0]);
+        })
+        .catch((err) => console.log(err));
 });
 
 router.get("/user", (req, res) => {
@@ -25,6 +59,13 @@ router.get("/user", (req, res) => {
             res.json(userData);
         }
     });
+});
+
+router.post("/bio", async (req, res) => {
+    console.log(req.session.user.email);
+    console.log(req.body.bio);
+    const result = await db.updateBio(req.session.user.email, req.body.bio);
+    res.json(result);
 });
 
 module.exports = router;

@@ -44,6 +44,38 @@ exports.addResetCode = (email, reset_code) => {
     );
 };
 
+exports.updatePictureURL = (email, new_profile_picture_url) => {
+    return db.query(
+        `
+        UPDATE 
+            users
+        SET 
+            profile_picture_url =  $2
+        WHERE
+            email = $1
+        RETURNING 
+            *
+    `,
+        [email, new_profile_picture_url]
+    );
+};
+
+exports.updateBio = (email, newBio) => {
+    return db.query(
+        `
+        UPDATE 
+            users
+        SET 
+            bio =  $2
+        WHERE
+            email = $1
+        RETURNING 
+            *
+    `,
+        [email, newBio]
+    );
+};
+
 exports.getUserByEmail = (email) => {
     return db.query(`SELECT * FROM users WHERE email = $1`, [email]);
 };

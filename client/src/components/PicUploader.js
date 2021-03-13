@@ -7,14 +7,13 @@ class PicUploader extends Component {
             file: null,
         };
     }
-    uploadPicture() {
+    async uploadPicture() {
         const picture = new FormData();
         picture.append("file", this.state.file);
         console.log("picture", picture);
-
-        axios
-            .post("/api/profile/upload-picture", picture)
-            .then((result) => console.log("result", result.data));
+        const result = await axios.post("/api/profile/upload-picture", picture);
+        console.log("result", result);
+        this.props.uploadDoneHandler(result.data.profile_picture_url);
     }
     render() {
         return (
@@ -28,6 +27,7 @@ class PicUploader extends Component {
                     }
                 />
                 <button onClick={() => this.uploadPicture()}>Upload</button>
+                <button onClick={() => this.props.closeHandler()}>x</button>
             </div>
         );
     }

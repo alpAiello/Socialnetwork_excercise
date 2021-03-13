@@ -13,3 +13,14 @@ body {
     display: flex;
     flex-direction: column;
 }
+.App{
+}
+.ProfilePic{
+    width: 60px;
+    height:60px;
+    display: inline-block;
+}
+.ProfilePic img{
+    object-fit: cover;
+    width: inherit;
+    height: inherit;}

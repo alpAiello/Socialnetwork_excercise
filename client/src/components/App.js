@@ -1,7 +1,8 @@
 import { Component } from "react";
 import axios from "../superAxios";
-import Profile from "./Profile";
+import ProfilePic from "./ProfilePic";
 import PicUploader from "./PicUploader";
+import Profile from "./Profile";
 
 class App extends Component {
     constructor(props) {
@@ -15,20 +16,44 @@ class App extends Component {
             this.setState({ ...this.state, ...user });
         });
     }
-
-    uploadHandler() {}
-
     render() {
-        const { email, profilePictureURL } = this.state;
+        const {
+            profile_picture_url,
+            bio,
+            firstname,
+            lastname,
+            uploaderVisible,
+        } = this.state;
         return (
-            <div>
-                <Profile
-                    profilePictureURL={email}
+            <div className="App">
+                <ProfilePic
+                    profile_picture_url={profile_picture_url}
                     visibilityHandler={() =>
                         this.setState({ uploaderVisible: true })
                     }
                 />
-                {this.state.uploaderVisible && <PicUploader />}
+                {uploaderVisible && (
+                    <PicUploader
+                        uploadDoneHandler={(newPictureURL) =>
+                            this.setState({
+                                ...this.state,
+                                profile_picture_url: newPictureURL,
+                                uploaderVisible: false,
+                            })
+                        }
+                        closeHandler={() =>
+                            this.setState({ uploaderVisible: false })
+                        }
+                    />
+                )}
+                <Profile
+                    profile_picture_url={profile_picture_url}
+                    profileName={firstname + " " + lastname}
+                    bio={bio}
+                    bioEditor={(editedBioInfo) => {
+                        this.setState({ bio: editedBioInfo });
+                    }}
+                />
             </div>
         );
     }

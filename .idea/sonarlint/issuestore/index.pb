@@ -45,3 +45,9 @@ L
 client/src/components/App.js,7/1/7100ab9006a82116f12ef47701b8cc73a88246cb
 H
 server/routes/profile.js,6/b/6b55389dd479a4ab864b512f24ad4a28630e773f
+A
+client/index.html,0/f/0f416da26130c4b5a608cf3e939a70da2b426880
+P
+ client/src/components/Profile.js,c/e/ce105adfc6f453cd8f6963ba66f3a526fe84912b
+T
+$client/src/components/PicUploader.js,b/9/b9ff5ddc8952f0b7d651341e0a423e870b72e692
