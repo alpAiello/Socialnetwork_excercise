@@ -39,5 +39,9 @@ W
 -client/src/components/welcome/Registration.js,e/a/ea2beddf2bac2b7ec3c824c9dc4210ed83212bda
 X
 (client/src/components/welcome/Welcome.js,6/5/656efa0861b603306fa8ea5f61703c7d5709de05
-]
--client/src/components/molecules/InputField.js,b/4/b4d299ddc250b115d33396d2c88f53109f0ee31c
+^
+.client/src/components/welcome/ResetPassword.js,f/9/f9ca27202359d18fe19d5c99258f060dcd52ba91
+L
+client/src/components/App.js,7/1/7100ab9006a82116f12ef47701b8cc73a88246cb
+H
+server/routes/profile.js,6/b/6b55389dd479a4ab864b512f24ad4a28630e773f

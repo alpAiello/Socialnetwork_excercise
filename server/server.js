@@ -5,19 +5,20 @@ const app = express();
 // const db = require("./sql/database.js");
 const cookieSession = require("cookie-session");
 const auth = require("./routes/auth.js");
+const profile = require("./routes/profile.js");
 const csurf = require("csurf");
 
 app.use(
-	cookieSession({
-		secret: `Keine Verbesserung ist zu klein oder geringfügig, als dass man sie nicht durchführen sollte.`,
-		maxAge: 1000 * 60 * 60 * 24 * 7 * 6,
-	})
+    cookieSession({
+        secret: `Keine Verbesserung ist zu klein oder geringfügig, als dass man sie nicht durchführen sollte.`,
+        maxAge: 1000 * 60 * 60 * 24 * 7 * 6,
+    })
 );
 
 app.use(
-	express.urlencoded({
-		extended: false,
-	})
+    express.urlencoded({
+        extended: false,
+    })
 );
 
 app.use(compression());
@@ -25,34 +26,37 @@ app.use(express.json());
 
 app.use(csurf());
 app.use((req, res, next) => {
-	res.cookie("token", req.csrfToken());
-	next();
+    res.cookie("token", req.csrfToken());
+    next();
 });
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
 app.use("/api/auth", auth);
+app.use("/api/profile", profile);
 
-app.use("*", (req, res, next) => {
-	console.log(req.session);
-	next();
-});
+/*app.use("*", (req, res, next) => {
+    console.log(req.session);
+    next();
+});*/
 
 app.get("/welcome", (req, res) => {
-	res.sendFile(path.join(__dirname, "..", "client", "index.html"));
+    if (req.session.user !== undefined) {
+        res.redirect(302, "/welcome");
+    }
+    res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
 app.get("*", (req, res) => {
-	console.log(req.session.user);
-	if (req.session.user === undefined) {
-		res.redirect(302, "/welcome");
-	} else {
-		res.sendFile(path.join(__dirname, "..", "client", "index.html"));
-	}
+    console.log("user----->", req.session.user);
+    if (req.session.user === undefined) {
+        res.redirect(302, "/welcome");
+    }
+    res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
 app.listen(process.env.PORT || 3001, function () {
-	console.log("I'm listening.");
+    console.log("I'm listening.");
 });
 
 module.exports.getApp = app;

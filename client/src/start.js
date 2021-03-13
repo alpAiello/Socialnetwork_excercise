@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import Welcome from "./components/welcome/Welcome.js";
+import App from "./components/App.js";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
 const theme = createMuiTheme({
@@ -21,5 +22,5 @@ if (location.pathname === "/welcome") {
         document.querySelector("main")
     );
 } else {
-    ReactDOM.render(<div>hello again</div>, document.querySelector("main"));
+    ReactDOM.render(<App />, document.querySelector("main"));
 }
