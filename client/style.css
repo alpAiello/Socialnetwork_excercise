@@ -18,9 +18,26 @@ body {
 .ProfilePic{
     width: 60px;
     height:60px;
-    display: inline-block;
 }
 .ProfilePic img{
     object-fit: cover;
     width: inherit;
     height: inherit;}
+.OtherProfile{
+    width: 500px;
+    height:500px;
+}
+.OtherProfile img{
+    object-fit: cover;
+    width: inherit;
+    height: inherit;
+}
+.Profile .ProfilePic{
+    width: 500px;
+    height: 500px;
+}
+.BioEditorEditMode{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}

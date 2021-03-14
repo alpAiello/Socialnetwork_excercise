@@ -25,6 +25,7 @@ class App extends Component {
             firstname,
             lastname,
             uploaderVisible,
+            email,
         } = this.state;
         return (
             <div className="App">
@@ -56,6 +57,7 @@ class App extends Component {
                             <Profile
                                 profile_picture_url={profile_picture_url}
                                 profileName={firstname + " " + lastname}
+                                email={email}
                                 bio={bio}
                                 bioEditor={(editedBioInfo) => {
                                     this.setState({ bio: editedBioInfo });

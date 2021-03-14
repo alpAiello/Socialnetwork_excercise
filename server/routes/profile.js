@@ -61,6 +61,26 @@ router.get("/user", (req, res) => {
     });
 });
 
+router.get("/users/:id", (req, res) => {
+    const userID = req.params.id;
+    console.log(userID != req.session.user.id);
+    console.log("req.session.user.id", req.session.user.id);
+    console.log("userID", userID);
+    if (userID != req.session.user.id) {
+        db.getUserByID(userID).then((result) => {
+            if (result.rows.length === 0) {
+                res.json({ success: false });
+            } else {
+                const userData = result.rows[0];
+                delete userData.hashed_password;
+                res.json(userData);
+            }
+        });
+    } else {
+        res.json({ isSignedInUser: true });
+    }
+});
+
 router.post("/bio", async (req, res) => {
     console.log(req.session.user.email);
     console.log(req.body.bio);

@@ -80,6 +80,10 @@ exports.getUserByEmail = (email) => {
     return db.query(`SELECT * FROM users WHERE email = $1`, [email]);
 };
 
+exports.getUserByID = (userID) => {
+    return db.query(`SELECT * FROM users WHERE id = $1`, [userID]);
+};
+
 exports.getResetCodeByEmail = (email) => {
     return db.query(
         `

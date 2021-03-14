@@ -17,6 +17,7 @@ class Profile extends Component {
                     bio={this.props.bio}
                     bioEditor={this.props.bioEditor}
                     name={this.props.profileName}
+                    email={this.props.email}
                 />
             </div>
         );

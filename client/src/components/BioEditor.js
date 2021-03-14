@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import axios from "../../src/superAxios";
 
 class BioEditor extends Component {
@@ -9,20 +9,23 @@ class BioEditor extends Component {
 
     saveBio() {
         this.props.bioEditor(this.state.draft);
-        this.setState({ editMode: false, draft: "" });
+        this.setState({ editMode: false });
         axios
             .post("/api/profile/bio", { bio: this.state.draft })
             .then((result) => console.log(result));
     }
 
     render() {
+        const { name, email, bio } = this.props;
         return (
-            <div>
+            <div className="BioEditor">
                 {this.state.editMode && (
-                    <div>
-                        <input
+                    <div className="BioEditorEditMode">
+                        <label htmlFor="bio">Bio</label>
+                        <textarea
+                            rows="8"
+                            id="bio"
                             name="bio"
-                            type="text"
                             onChange={(e) =>
                                 this.setState({ draft: e.target.value })
                             }
@@ -38,8 +41,10 @@ class BioEditor extends Component {
                     </div>
                 )}{" "}
                 {!this.state.editMode && (
-                    <div>
-                        <p>{this.props.bio}</p>
+                    <div className="BioEditorShowMode">
+                        <h1>{name}</h1>
+                        <p>{email}</p>
+                        <p>{bio}</p>
                         <button
                             onClick={() => this.setState({ editMode: true })}
                         >
