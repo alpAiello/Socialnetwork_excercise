@@ -3,6 +3,8 @@ import axios from "../superAxios";
 import ProfilePic from "./ProfilePic";
 import PicUploader from "./PicUploader";
 import Profile from "./Profile";
+import OtherProfile from "./OtherProfile";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
     constructor(props) {
@@ -46,14 +48,23 @@ class App extends Component {
                         }
                     />
                 )}
-                <Profile
-                    profile_picture_url={profile_picture_url}
-                    profileName={firstname + " " + lastname}
-                    bio={bio}
-                    bioEditor={(editedBioInfo) => {
-                        this.setState({ bio: editedBioInfo });
-                    }}
-                />
+                <Router>
+                    <Route
+                        path={"/"}
+                        exact
+                        render={() => (
+                            <Profile
+                                profile_picture_url={profile_picture_url}
+                                profileName={firstname + " " + lastname}
+                                bio={bio}
+                                bioEditor={(editedBioInfo) => {
+                                    this.setState({ bio: editedBioInfo });
+                                }}
+                            />
+                        )}
+                    />
+                    <Route path={"/user/:id"} component={OtherProfile} />
+                </Router>
             </div>
         );
     }

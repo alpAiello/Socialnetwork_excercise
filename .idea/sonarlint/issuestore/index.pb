@@ -51,3 +51,13 @@ P
  client/src/components/Profile.js,c/e/ce105adfc6f453cd8f6963ba66f3a526fe84912b
 T
 $client/src/components/PicUploader.js,b/9/b9ff5ddc8952f0b7d651341e0a423e870b72e692
+R
+"client/src/components/BioEditor.js,4/3/43eddba97414a11024d878f7d4a4857f7c63b7db
+@
+client/style.css,9/e/9e15d32ac365986010360324c7b86d738f022c83
+S
+#client/src/components/ProfilePic.js,1/9/197b97d18fa0bdcad7193a543d5617ba5e7e041a
+G
+server/sql/mockData.sql,c/2/c242649383a2581e40351d7aa17e876915e6f8f9
+U
+%client/src/components/OtherProfile.js,f/5/f520901d4e0d0ed9fe8ea54f437ed4337035be0c
