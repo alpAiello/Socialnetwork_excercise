@@ -4,6 +4,7 @@ import ProfilePic from "./ProfilePic";
 import PicUploader from "./PicUploader";
 import Profile from "./Profile";
 import OtherProfile from "./OtherProfile";
+import FindPeople from "./FindPeople";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
@@ -50,6 +51,7 @@ class App extends Component {
                     />
                 )}
                 <Router>
+                    <Route path={"/user-search"} exact component={FindPeople} />
                     <Route
                         path={"/"}
                         exact
