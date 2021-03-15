@@ -6,6 +6,7 @@ const app = express();
 const cookieSession = require("cookie-session");
 const auth = require("./routes/auth.js");
 const profile = require("./routes/profile.js");
+const friendRequests = require("./routes/friend-requests");
 const db = require("./sql/database.js");
 const csurf = require("csurf");
 
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
 app.use("/api/auth", auth);
 app.use("/api/profile", profile);
+app.use("/api/friend-requests", friendRequests);
 
 app.get("/api/search/", (req, res) => {
     console.log("hello");
