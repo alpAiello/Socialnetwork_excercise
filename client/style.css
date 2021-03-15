@@ -13,31 +13,36 @@ body {
     display: flex;
     flex-direction: column;
 }
-.App{
+.App {
 }
-.ProfilePic{
+.ProfilePic {
     width: 60px;
-    height:60px;
+    height: 60px;
 }
-.ProfilePic img{
-    object-fit: cover;
-    width: inherit;
-    height: inherit;}
-.OtherProfile{
-    width: 500px;
-    height:500px;
-}
-.OtherProfile img{
+.ProfilePic img {
     object-fit: cover;
     width: inherit;
     height: inherit;
 }
-.Profile .ProfilePic{
+.OtherProfile {
+    width: 300px;
+    height: 300px;
+}
+.OtherProfile img {
+    object-fit: cover;
+    width: inherit;
+    height: inherit;
+}
+.Profile .ProfilePic {
     width: 500px;
     height: 500px;
 }
-.BioEditorEditMode{
+.BioEditorEditMode {
     display: flex;
     flex-direction: column;
     width: 50%;
+}
+.userList {
+    display: flex;
+    justify-content: space-around;
 }

@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from "react";
 import axios from "../superAxios";
+import { Link, BrowserRouter } from "react-router-dom";
 
 function Search() {
     const [users, setUsers] = useState([]);
     const [query, setQuery] = useState("");
 
     const getUserWithQuery = (query) => {
+        let deleteCall = false;
         axios.get("/api/search/?search=" + query).then((result) => {
             const userArray = result.data.result;
             console.log("result", userArray);
-            setUsers(userArray);
+            if (!deleteCall) {
+                setUsers(userArray);
+            }
+            return () => {
+                deleteCall = true;
+            };
         });
     };
 
-    useEffect(() => getUserWithQuery(query), [query]);
+    useEffect(() => {
+        getUserWithQuery(query);
+    }, [query]);
 
     return (
         <div>
@@ -25,26 +34,22 @@ function Search() {
                     setQuery(event.target.value);
                 }}
             />
-            <table>
-                <thead>
-                    <tr>
-                        <th>firstname</th>
-                        <th>lastname</th>
-                        <th>bio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users.map((user) => {
-                        return (
-                            <tr key={user.id}>
-                                <td>{user.firstname}</td>
-                                <td>{user.lastname}</td>
-                                <td>{user.bio}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+            <div className="userList">
+                <p>Firstname</p>
+                <p>Lastname</p>
+                <p>Bio</p>
+                <p>Link</p>
+            </div>
+            {users.map((user) => {
+                return (
+                    <div key={user.id} className="userList">
+                        <p>{user.firstname}</p>
+                        <p>{user.lastname}</p>
+                        <p>{user.bio}</p>
+                        <Link to={{ pathname: "/user/" + user.id }}>goto</Link>
+                    </div>
+                );
+            })}
         </div>
     );
 }

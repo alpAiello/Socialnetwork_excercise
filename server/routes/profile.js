@@ -74,7 +74,7 @@ router.get("/users/:id", (req, res) => {
                 } else {
                     const userData = result.rows[0];
                     delete userData.hashed_password;
-                    res.json(userData);
+                    res.json({ ...userData, success: true });
                 }
             })
             .catch((err) => {

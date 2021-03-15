@@ -41,7 +41,7 @@ class OtherProfile extends Component {
                     <img src={profile_picture_url} alt="profile picture" />
                 )}
                 {!success && <h1>profile not found ⛔️</h1>}
-                <h1>{(firstname, " ", lastname)}</h1>
+                <h1>{firstname + " " + lastname}</h1>
                 <p>{email}</p>
                 <p>{bio}</p>
             </div>
