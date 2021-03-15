@@ -7,15 +7,15 @@ function Search() {
     const [query, setQuery] = useState("");
 
     const getUserWithQuery = (query) => {
-        let deleteCall = false;
+        let showResult = true;
         axios.get("/api/search/?search=" + query).then((result) => {
             const userArray = result.data.result;
             console.log("result", userArray);
-            if (!deleteCall) {
+            if (showResult) {
                 setUsers(userArray);
             }
             return () => {
-                deleteCall = true;
+                showResult = false;
             };
         });
     };
