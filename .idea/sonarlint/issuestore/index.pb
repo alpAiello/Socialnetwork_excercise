@@ -61,3 +61,5 @@ G
 server/sql/mockData.sql,c/2/c242649383a2581e40351d7aa17e876915e6f8f9
 U
 %client/src/components/OtherProfile.js,f/5/f520901d4e0d0ed9fe8ea54f437ed4337035be0c
+O
+client/src/components/Search.js,c/8/c8fe4eb0110c8f7141f1a481228157bd089baa0a

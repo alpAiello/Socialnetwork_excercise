@@ -5,13 +5,13 @@ const db = spicedPg(dbURL);
 exports.addUser = (username, firstname, lastname, email, hashed_password) => {
     return db.query(
         `
-		INSERT INTO 
-			users (username, firstname, lastname, email, hashed_password)
-		VALUES
-			($1,$2,$3,$4,$5)
-		RETURNING
-			*;
-		`,
+        INSERT INTO 
+            users (username, firstname, lastname, email, hashed_password)
+        VALUES
+            ($1,$2,$3,$4,$5)
+        RETURNING
+            *;
+        `,
         [username, firstname, lastname, email, hashed_password]
     );
 };
@@ -33,13 +33,13 @@ exports.updatePassword = (email, hashed_newPassword) => {
 exports.addResetCode = (email, reset_code) => {
     return db.query(
         `
-		INSERT INTO 
-			reset_codes (email, reset_code)
-		VALUES
-			($1,$2)
-		RETURNING
-			*;
-		`,
+        INSERT INTO 
+            reset_codes (email, reset_code)
+        VALUES
+            ($1,$2)
+        RETURNING
+            *;
+        `,
         [email, reset_code]
     );
 };
@@ -87,21 +87,27 @@ exports.getUserByID = (userID) => {
 exports.getResetCodeByEmail = (email) => {
     return db.query(
         `
-	SELECT 
-	       reset_code 
-	FROM 
-	     reset_codes 
-	WHERE 
-	      email=$1
-	AND 
-	      CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
+    SELECT 
+           reset_code 
+    FROM 
+         reset_codes 
+    WHERE 
+          email=$1
+    AND 
+          CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
     ORDER BY
         created_at DESC;
-	`,
+    `,
         [email]
     );
 };
 
 exports.getUserByUsername = (username) => {
     return db.query(`SELECT * FROM users WHERE username = $1`, [username]);
+};
+
+exports.getUserListByName = (query) => {
+    return db.query(`SELECT * FROM users WHERE firstname ILIKE $1`, [
+        query + `%`,
+    ]);
 };

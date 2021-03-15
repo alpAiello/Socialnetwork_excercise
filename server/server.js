@@ -6,6 +6,7 @@ const app = express();
 const cookieSession = require("cookie-session");
 const auth = require("./routes/auth.js");
 const profile = require("./routes/profile.js");
+const db = require("./sql/database.js");
 const csurf = require("csurf");
 
 app.use(
@@ -35,10 +36,16 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use("/api/auth", auth);
 app.use("/api/profile", profile);
 
-/*app.use("*", (req, res, next) => {
-    console.log(req.session);
-    next();
-});*/
+app.get("/api/search/", (req, res) => {
+    console.log("hello");
+    const query = req.query.search;
+    console.log("query", query);
+    db.getUserListByName(query).then((result) => {
+        result = result.rows;
+        console.log(result);
+        res.json({ result });
+    });
+});
 
 app.get("/welcome", (req, res) => {
     if (req.session.user !== undefined) {

@@ -23,3 +23,4 @@ CREATE TABLE if not EXISTS reset_codes
      );
 SELECT * FROM users;
 SELECT * FROM reset_codes;
+SELECT * FROM users WHERE firstname ILIKE %%
