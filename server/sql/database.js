@@ -92,9 +92,9 @@ exports.getFriendsRequest = (user_id, other_id) => {
     FROM
         friend_requests 
     WHERE 
-        from_id = $1 AND to_id = $2
+        (from_id = $1 AND to_id = $2)
     OR
-        to_id = $2 AND from_id = $1;
+        (to_id = $1 AND from_id = $2);
     `,
         [user_id, other_id]
     );

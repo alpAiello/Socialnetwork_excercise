@@ -34,6 +34,12 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
+app.use("user--------------> ", (req, res, next) => {
+    console.log(req.session.user);
+    next();
+});
+
+console.log("friendRequests", friendRequests);
 app.use("/api/auth", auth);
 app.use("/api/profile", profile);
 app.use("/api/friend-requests", friendRequests);
