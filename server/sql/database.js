@@ -108,6 +108,6 @@ exports.getUserByUsername = (username) => {
 
 exports.getUserListByName = (query) => {
     return db.query(`SELECT * FROM users WHERE firstname ILIKE $1`, [
-        query + %`,
+        query + "%",
     ]);
 };
