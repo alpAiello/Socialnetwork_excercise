@@ -84,6 +84,22 @@ exports.getUserByID = (userID) => {
     return db.query(`SELECT * FROM users WHERE id = $1`, [userID]);
 };
 
+exports.getFriendsRequest = (user_id, other_id) => {
+    return db.query(
+        `
+    SELECT 
+        * 
+    FROM
+        friend_requests 
+    WHERE 
+        from_id = $1 AND to_id = $2
+    OR
+        to_id = $2 AND from_id = $1;
+    `,
+        [user_id, other_id]
+    );
+};
+
 exports.getResetCodeByEmail = (email) => {
     return db.query(
         `
@@ -107,7 +123,9 @@ exports.getUserByUsername = (username) => {
 };
 
 exports.getUserListByName = (query) => {
-    return db.query(`SELECT * FROM users WHERE firstname ILIKE $1`, [
-        query + "%",
-    ]);
+    return db.query(
+        `SELECT * FROM users WHERE firstname ILIKE $1
+ORDER BY created_at DESC`,
+        [query + "%"]
+    );
 };

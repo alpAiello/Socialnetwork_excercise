@@ -35,18 +35,23 @@ function Search() {
                 }}
             />
             <div className="userList">
+                <p>Profile</p>
                 <p>Firstname</p>
                 <p>Lastname</p>
                 <p>Bio</p>
-                <p>Link</p>
             </div>
             {users.map((user) => {
                 return (
                     <div key={user.id} className="userList">
+                        <Link to={{ pathname: "/user/" + user.id }}>
+                            <img
+                                src={user.profile_picture_url}
+                                alt="profile-picture"
+                            />
+                        </Link>
                         <p>{user.firstname}</p>
                         <p>{user.lastname}</p>
                         <p>{user.bio}</p>
-                        <Link to={{ pathname: "/user/" + user.id }}>goto</Link>
                     </div>
                 );
             })}

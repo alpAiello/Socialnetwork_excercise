@@ -14,17 +14,16 @@ router.use(
     })
 );
 
-router.use(
-    express.urlencoded({
-        extended: false,
-    })
-);
+const STATUS_FRIENDS_REQUEST_NO_REQUEST = "no request";
+const STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED = "request accepted";
+const STATUS_FRIENDS_REQUEST_REQUEST_BY_ME = "request by me";
+const STATUS_FRIENDS_REQUEST_REQUEST_TO_ME = "request to me";
 
-router.use(compression());
-router.use(express.json());
-
-router.get("/hello", (req, res) => {
-    res.json(req.session.user.id);
+router.get("/:other-id", async (req, res) => {
+    const userID = req.session.user.id;
+    const otherID = req.params["other-id"];
+    const result = db.getFriendsRequest(userID, otherID);
+    console.log(result);
 });
 
 module.exports = router;

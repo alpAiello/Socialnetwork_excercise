@@ -15,13 +15,18 @@ body {
 }
 .App {
 }
-.ProfilePic {
-    width: 60px;
-    height: 60px;
+.userList{
+    height: 60px
 }
-.ProfilePic img {
+
+.ProfilePic img{
     object-fit: cover;
     width: inherit;
+    height: inherit;
+}
+.userList img {
+    object-fit: cover;
+    width: 60px;
     height: inherit;
 }
 .OtherProfile {
@@ -34,8 +39,12 @@ body {
     height: inherit;
 }
 .Profile .ProfilePic {
-    width: 500px;
-    height: 500px;
+    width: 300px;
+    height: 300px;
+}
+.ProfilePic {
+    width: 60px;
+    height: 60px;
 }
 .BioEditorEditMode {
     display: flex;
