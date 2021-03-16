@@ -42,4 +42,41 @@ router.get("/:otherID", async (req, res) => {
     }
 });
 
+router.post("/make/:otherID", (req, res) => {
+    const otherID = req.params.otherID
+    const userID = String(req.session.user.id)
+    console.log("otherID----------->", otherID)
+    console.log("userID----------->", userID)
+    const result = await db.makeRequest(userID, otherID)
+    const newStatus = result.rows[0]
+    res.json(result)
+});
+router.post("/cancel/:otherID", (req, res) => {
+    const otherID = req.params.otherID
+    const userID = String(req.session.user.id)
+    console.log("otherID----------->", otherID)
+    console.log("userID----------->", userID)
+    const result = await db.cancelRequest(userID, otherID)
+    const newStatus = result.rows[0]
+    res.json(result)
+});
+router.post("/accept/:otherID", (req, res) => {
+    const otherID = req.params.otherID
+    const userID = String(req.session.user.id)
+    console.log("otherID----------->", otherID)
+    console.log("userID----------->", userID)
+    const result = await db.acceptRequest(userID, otherID)
+    const newStatus = result.rows[0]
+    res.json(result)
+});
+router.post("/unfriend/:otherID", (req, res) => {
+    const otherID = req.params.otherID
+    const userID = String(req.session.user.id)
+    console.log("otherID----------->", otherID)
+    console.log("userID----------->", userID)
+    const result = await db.unfriend(userID, otherID)
+    const newStatus = result.rows[0]
+    res.json(result)
+});
+
 module.exports = router;

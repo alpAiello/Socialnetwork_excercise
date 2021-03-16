@@ -129,3 +129,24 @@ ORDER BY created_at DESC`,
         [query + "%"]
     );
 };
+
+exports.bla = (userID, otherID) => {
+    return db.query(`
+    
+    `);
+};
+exports.bla = (userID, otherID) => {
+    return db.query(`
+    
+    `);
+};
+exports.bla = (userID, otherID) => {
+    return db.query(`
+    
+    `);
+};
+exports.bla = (userID, otherID) => {
+    return db.query(`
+    
+    `);
+};
