@@ -10,6 +10,7 @@ const STATUS_FRIENDS_REQUEST_REQUEST_TO_ME = "request to me";
 
 router.get("/:otherID", async (req, res) => {
     const userID = String(req.session.user.id);
+    console.log("param", req.params);
     const otherID = req.params.otherID;
     console.log("userID,otherID------------------->", userID, otherID);
     console.log(
@@ -42,41 +43,41 @@ router.get("/:otherID", async (req, res) => {
     }
 });
 
-router.post("/make/:otherID", (req, res) => {
-    const otherID = req.params.otherID
-    const userID = String(req.session.user.id)
-    console.log("otherID----------->", otherID)
-    console.log("userID----------->", userID)
-    const result = await db.addRequest(userID, otherID)
-    const newStatus = result.rows[0]
-    res.json({ ...newStatus, "status": STATUS_FRIENDS_REQUEST_REQUEST_BY_ME })
+router.post("/make/:otherID", async (req, res) => {
+    const otherID = req.params.otherID;
+    const userID = String(req.session.user.id);
+    console.log("otherID----------->", otherID);
+    console.log("userID----------->", userID);
+    const result = await db.addRequest(userID, otherID);
+    const newStatus = result.rows[0];
+    res.json({ ...newStatus, status: STATUS_FRIENDS_REQUEST_REQUEST_BY_ME });
 });
-router.post("/cancel/:otherID", (req, res) => {
-    const otherID = req.params.otherID
-    const userID = String(req.session.user.id)
-    console.log("otherID----------->", otherID)
-    console.log("userID----------->", userID)
-    const result = await db.deleteRequest(userID, otherID)
-    const newStatus = result.rows[0]
-    res.json({ ...newStatus, "status":  STATUS_FRIENDS_REQUEST_NO_REQUEST})
+router.post("/cancel/:otherID", async (req, res) => {
+    const otherID = req.params.otherID;
+    const userID = String(req.session.user.id);
+    console.log("otherID----------->", otherID);
+    console.log("userID----------->", userID);
+    const result = await db.deleteRequest(userID, otherID);
+    const newStatus = result.rows[0];
+    res.json({ ...newStatus, status: STATUS_FRIENDS_REQUEST_NO_REQUEST });
 });
-router.post("/accept/:otherID", (req, res) => {
-    const otherID = req.params.otherID
-    const userID = String(req.session.user.id)
-    console.log("otherID----------->", otherID)
-    console.log("userID----------->", userID)
-    const result = await db.acceptRequest(userID, otherID)
-    const newStatus = result.rows[0]
-    res.json({ ...newStatus, "status": STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED })
+router.post("/accept/:otherID", async (req, res) => {
+    const otherID = req.params.otherID;
+    const userID = String(req.session.user.id);
+    console.log("otherID----------->", otherID);
+    console.log("userID----------->", userID);
+    const result = await db.acceptRequest(userID, otherID);
+    const newStatus = result.rows[0];
+    res.json({ ...newStatus, status: STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED });
 });
-router.post("/unfriend/:otherID", (req, res) => {
-    const otherID = req.params.otherID
-    const userID = String(req.session.user.id)
-    console.log("otherID----------->", otherID)
-    console.log("userID----------->", userID)
-    const result = await db.deleteRequest(userID, otherID)
-    const newStatus = result.rows[0]
-    res.json({ ...newStatus, "status": STATUS_FRIENDS_REQUEST_NO_REQUEST })
+router.post("/unfriend/:otherID", async (req, res) => {
+    const otherID = req.params.otherID;
+    const userID = String(req.session.user.id);
+    console.log("otherID----------->", otherID);
+    console.log("userID----------->", userID);
+    const result = await db.deleteRequest(userID, otherID);
+    const newStatus = result.rows[0];
+    res.json({ ...newStatus, status: STATUS_FRIENDS_REQUEST_NO_REQUEST });
 });
 
 module.exports = router;

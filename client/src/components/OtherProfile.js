@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "../superAxios";
+import FriendButton from "./FriendButton";
 
 class OtherProfile extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class OtherProfile extends Component {
             email: "",
             bio: "",
             profile_picture_url: "",
+            id: "",
         };
     }
 
@@ -27,6 +29,7 @@ class OtherProfile extends Component {
 
     render() {
         const {
+            id,
             firstname,
             lastname,
             email,
@@ -44,6 +47,7 @@ class OtherProfile extends Component {
                 <h1>{firstname + " " + lastname}</h1>
                 <p>{email}</p>
                 <p>{bio}</p>
+                {id && <FriendButton otherID={id} />}
             </div>
         );
     }

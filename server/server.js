@@ -39,7 +39,6 @@ app.use("user--------------> ", (req, res, next) => {
     next();
 });
 
-console.log("friendRequests", friendRequests);
 app.use("/api/auth", auth);
 app.use("/api/profile", profile);
 app.use("/api/friend-requests", friendRequests);
