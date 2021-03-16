@@ -130,23 +130,47 @@ ORDER BY created_at DESC`,
     );
 };
 
-exports.bla = (userID, otherID) => {
-    return db.query(`
-    
-    `);
+exports.addRequest = (userID, otherID) => {
+    return db.query(
+        `INSERT INTO friend_requests 
+            (from_id, to_id, accepted) 
+        VALUES 
+               ($1,$2) 
+        RETURNING 
+            *
+            `,
+        [userID, otherID]
+    );
 };
-exports.bla = (userID, otherID) => {
-    return db.query(`
-    
-    `);
+exports.deleteRequest = (userID, otherID) => {
+    return db.query(
+        `
+    DELETE FROM
+        friend_requests
+    WHERE 
+        to_id = $1 AND from_id = $2
+    OR 
+        to_id = $2 AND from_id = $1
+    RETURNING 
+        *
+    `,
+        [userID, otherID]
+    );
 };
-exports.bla = (userID, otherID) => {
-    return db.query(`
-    
-    `);
-};
-exports.bla = (userID, otherID) => {
-    return db.query(`
-    
-    `);
+exports.acceptRequest = (userID, otherID) => {
+    return db.query(
+        `
+    UPDATE
+        friend_requests
+    SET
+        accepted = true
+    WHERE
+        to_id = $1 AND from_id = $2
+    OR
+        to_id = $2 AND from_id = $1
+    RETURNING
+        *
+    `,
+        [userID, otherID]
+    );
 };
