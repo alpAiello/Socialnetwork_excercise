@@ -5,7 +5,8 @@ import PicUploader from "./PicUploader";
 import Profile from "./Profile";
 import OtherProfile from "./OtherProfile";
 import Search from "./Search";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import Friends from "./Friends";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
     constructor(props) {
@@ -30,27 +31,29 @@ class App extends Component {
         } = this.state;
         return (
             <div className="App">
-                <ProfilePic
-                    profile_picture_url={profile_picture_url}
-                    visibilityHandler={() =>
-                        this.setState({ uploaderVisible: true })
-                    }
-                />
-                {uploaderVisible && (
-                    <PicUploader
-                        uploadDoneHandler={(newPictureURL) =>
-                            this.setState({
-                                ...this.state,
-                                profile_picture_url: newPictureURL,
-                                uploaderVisible: false,
-                            })
-                        }
-                        closeHandler={() =>
-                            this.setState({ uploaderVisible: false })
+                <Router>
+                    <ProfilePic
+                        profile_picture_url={profile_picture_url}
+                        visibilityHandler={() =>
+                            this.setState({ uploaderVisible: true })
                         }
                     />
-                )}
-                <Router>
+                    <Link to={"/friends"}>Friends & Requests</Link>
+                    {uploaderVisible && (
+                        <PicUploader
+                            uploadDoneHandler={(newPictureURL) =>
+                                this.setState({
+                                    ...this.state,
+                                    profile_picture_url: newPictureURL,
+                                    uploaderVisible: false,
+                                })
+                            }
+                            closeHandler={() =>
+                                this.setState({ uploaderVisible: false })
+                            }
+                        />
+                    )}
+                    <Route path={"/friends"} exact component={Friends} />
                     <Route path={"/search"} exact component={Search} />
                     <Route
                         path={"/"}
