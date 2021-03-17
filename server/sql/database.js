@@ -135,7 +135,7 @@ exports.addRequest = (userID, otherID) => {
         `INSERT INTO friend_requests 
             (from_id, to_id, accepted) 
         VALUES 
-               ($1,$2) 
+               ($1,$2, false) 
         RETURNING 
             *
             `,
