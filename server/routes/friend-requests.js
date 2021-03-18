@@ -3,10 +3,10 @@ const express = require("express");
 const db = require("../sql/database.js");
 const router = express.Router();
 
-export const STATUS_FRIENDS_REQUEST_NO_REQUEST = "no request";
-export const STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED = "request accepted";
-export const STATUS_FRIENDS_REQUEST_REQUEST_BY_ME = "request by me";
-export const STATUS_FRIENDS_REQUEST_REQUEST_TO_ME = "request to me";
+const STATUS_FRIENDS_REQUEST_NO_REQUEST = "no request";
+const STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED = "request accepted";
+const STATUS_FRIENDS_REQUEST_REQUEST_BY_ME = "request by me";
+const STATUS_FRIENDS_REQUEST_REQUEST_TO_ME = "request to me";
 
 router.get("/:otherID", async (req, res) => {
     const userID = String(req.session.user.id);
