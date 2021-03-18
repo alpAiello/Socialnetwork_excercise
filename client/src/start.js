@@ -2,6 +2,16 @@ import ReactDOM from "react-dom";
 import Welcome from "./components/welcome/Welcome.js";
 import App from "./components/App.js";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import reduxPromise from "redux-promise";
+import reducer from "./reducer";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(reduxPromise))
+);
 
 const theme = createMuiTheme({
     palette: {
@@ -22,5 +32,10 @@ if (location.pathname === "/welcome") {
         document.querySelector("main")
     );
 } else {
-    ReactDOM.render(<App />, document.querySelector("main"));
+    let elem = (
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
+    ReactDOM.render(elem, document.querySelector("main"));
 }

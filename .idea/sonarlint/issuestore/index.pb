@@ -71,3 +71,7 @@ U
 %client/src/components/FriendButton.js,0/c/0cc0331f03f7cddd7da7dcebd618aa46bd7206c0
 P
  client/src/components/Friends.js,9/8/9802c7278a60914b31eaee1bbcc8259c35c67ca6
+D
+client/src/action.js,1/b/1b6249f8e06b1b5c77a3eca5918e726a77422e8b
+E
+client/src/reducer.js,0/7/0759c54f9cae3da9e9f58d8099fa4fa9ab7c5ac7
