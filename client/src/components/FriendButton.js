@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "../superAxios";
+import {
+    STATUS_FRIENDS_REQUEST_NO_REQUEST,
+    STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED,
+    STATUS_FRIENDS_REQUEST_REQUEST_BY_ME,
+    STATUS_FRIENDS_REQUEST_REQUEST_TO_ME,
+} from "../../../server/routes/friend-requests";
 
 function FriendButton(props) {
     console.log("Friendbutton", props);
@@ -47,7 +53,7 @@ function FriendButton(props) {
 
     return (
         <div>
-            {status === "no request" && (
+            {status === STATUS_FRIENDS_REQUEST_NO_REQUEST && (
                 <button
                     onClick={() => {
                         clickHandler("send");
@@ -56,7 +62,7 @@ function FriendButton(props) {
                     send request
                 </button>
             )}
-            {status === "request by me" && (
+            {status === STATUS_FRIENDS_REQUEST_REQUEST_BY_ME && (
                 <button
                     onClick={() => {
                         clickHandler("cancel");
@@ -65,7 +71,7 @@ function FriendButton(props) {
                     cancel request
                 </button>
             )}
-            {status === "request to me" && (
+            {status === STATUS_FRIENDS_REQUEST_REQUEST_TO_ME && (
                 <button
                     onClick={() => {
                         clickHandler("accept");
@@ -74,7 +80,7 @@ function FriendButton(props) {
                     accept request
                 </button>
             )}
-            {status === "request accepted" && (
+            {status === STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED && (
                 <button
                     onClick={() => {
                         clickHandler("unfriend");

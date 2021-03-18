@@ -67,3 +67,7 @@ F
 friends-button.test.js,d/3/d392e77d825640703b09b8f2c9405941035f5ec7
 P
  server/routes/friend-requests.js,e/9/e93e7e9b0cce3c9a53681cdc5174d9a8653ea400
+U
+%client/src/components/FriendButton.js,0/c/0cc0331f03f7cddd7da7dcebd618aa46bd7206c0
+P
+ client/src/components/Friends.js,9/8/9802c7278a60914b31eaee1bbcc8259c35c67ca6
