@@ -181,7 +181,7 @@ exports.getFriendsAndWannabes = (userID) => {
     return db.query(
         `
     SELECT
-            firstname, lastname, profile_picture_url, accepted
+            users.id, firstname, lastname, profile_picture_url, accepted
         FROM friend_requests
         JOIN users
             ON (from_id=users.id AND to_id=$1          AND accepted=false)

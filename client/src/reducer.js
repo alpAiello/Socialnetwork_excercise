@@ -1,13 +1,11 @@
 import axios from "./superAxios";
 import action from "./action";
 
-const initialState = {
-    friendsAndWannabes: {},
-};
-
-async function reducer(state = initialState, action = "") {
+function reducer(state = {}, action = "") {
     if (action.type == "load friends") {
-        return { ...state, friendsAndWannabes: action.result };
+        const friendsAndWannabes = action.payload;
+        console.log("hallo reducer", friendsAndWannabes);
+        return { ...state, friendsAndWannabes };
     }
     return state;
 }

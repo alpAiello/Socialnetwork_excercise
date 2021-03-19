@@ -39,9 +39,10 @@ router.get("/:otherID", async (req, res) => {
         if (accepted === true) {
             res.json({ status: STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED });
         } else {
+            console.log("ok further");
             if (userID === from_id) {
                 res.json({ status: STATUS_FRIENDS_REQUEST_REQUEST_BY_ME });
-            } else if (userID === to_id) {
+            } else {
                 res.json({ status: STATUS_FRIENDS_REQUEST_REQUEST_TO_ME });
             }
         }
