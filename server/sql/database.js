@@ -142,6 +142,7 @@ exports.addRequest = (userID, otherID) => {
         [userID, otherID]
     );
 };
+
 exports.deleteRequest = (userID, otherID) => {
     return db.query(
         `
@@ -157,6 +158,7 @@ exports.deleteRequest = (userID, otherID) => {
         [userID, otherID]
     );
 };
+
 exports.acceptRequest = (userID, otherID) => {
     return db.query(
         `
@@ -172,5 +174,20 @@ exports.acceptRequest = (userID, otherID) => {
         *
     `,
         [userID, otherID]
+    );
+};
+
+exports.getFriendsAndWannabes = (userID) => {
+    return db.query(
+        `
+    SELECT
+            firstname, lastname, profile_picture_url, accepted
+        FROM friend_requests
+        JOIN users
+            ON (from_id=users.id AND to_id=$1          AND accepted=false)
+            OR (from_id=users.id AND to_id=$1          AND accepted=true)
+            OR (from_id=$1        AND to_id=users.id   AND accepted=true);
+    `,
+        [userID]
     );
 };

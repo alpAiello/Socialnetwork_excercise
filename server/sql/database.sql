@@ -25,8 +25,8 @@ CREATE TABLE if not EXISTS reset_codes
 CREATE TABLE if not EXISTS friend_requests
 (
     id serial unique PRIMARY KEY ,
-    from_id varchar(256),
-    to_id varchar(256),
+    from_id INTEGER,
+    to_id INTEGER,
     accepted boolean,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

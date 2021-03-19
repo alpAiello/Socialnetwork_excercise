@@ -8,6 +8,11 @@ const STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED = "request accepted";
 const STATUS_FRIENDS_REQUEST_REQUEST_BY_ME = "request by me";
 const STATUS_FRIENDS_REQUEST_REQUEST_TO_ME = "request to me";
 
+router.get("/friends-and-wannabes", async (req, res) => {
+    const userID = req.session.user.id;
+    const result = await db.getFriendsAndWannabes(userID);
+    res.json(result.rows);
+});
 router.get("/:otherID", async (req, res) => {
     const userID = String(req.session.user.id);
     console.log("param", req.params);

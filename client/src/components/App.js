@@ -5,7 +5,7 @@ import PicUploader from "./PicUploader";
 import Profile from "./Profile";
 import OtherProfile from "./OtherProfile";
 import Search from "./Search";
-import Friends from "./Friends";
+import FriendsAndWannabes from "./FriendsAndWannabes";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
@@ -38,7 +38,7 @@ class App extends Component {
                             this.setState({ uploaderVisible: true })
                         }
                     />
-                    <Link to={"/friends"}>Friends & Requests</Link>
+                    <Link to={"/friends-and-wannabes"}>Friends & Requests</Link>
                     {uploaderVisible && (
                         <PicUploader
                             uploadDoneHandler={(newPictureURL) =>
@@ -53,7 +53,11 @@ class App extends Component {
                             }
                         />
                     )}
-                    <Route path={"/friends"} exact component={Friends} />
+                    <Route
+                        path={"/friends-and-wannabes"}
+                        exact
+                        component={FriendsAndWannabes}
+                    />
                     <Route path={"/search"} exact component={Search} />
                     <Route
                         path={"/"}
