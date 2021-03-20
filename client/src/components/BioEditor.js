@@ -29,7 +29,7 @@ class BioEditor extends Component {
                             onChange={(e) =>
                                 this.setState({ draft: e.target.value })
                             }
-                            value={this.state.draft || this.props.bio} //TODO this must work without refilling after emptying
+                            value={this.state.draft}
                         />
                         <button
                             onClick={() => {
@@ -46,7 +46,9 @@ class BioEditor extends Component {
                         <p>{email}</p>
                         <p>{bio}</p>
                         <button
-                            onClick={() => this.setState({ editMode: true })}
+                            onClick={() =>
+                                this.setState({ draft: bio, editMode: true })
+                            }
                         >
                             {this.props.bio ? "edit" : "add"}
                         </button>
