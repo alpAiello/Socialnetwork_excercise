@@ -31,6 +31,15 @@ CREATE TABLE if not EXISTS friend_requests
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE if not EXISTS chat_messages
+(
+    id serial unique PRIMARY KEY ,
+    user_id varchar(256),
+    message_text varchar(5000),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+SELECT * FROM chat_messages;
 SELECT * FROM users;
 SELECT * FROM reset_codes;
 SELECT * FROM friend_requests;

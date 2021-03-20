@@ -2,20 +2,29 @@ const express = require("express");
 const compression = require("compression");
 const path = require("path");
 const app = express();
-// const db = require("./sql/database.js");
-const cookieSession = require("cookie-session");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
+
 const auth = require("./routes/auth.js");
 const profile = require("./routes/profile.js");
 const friendRequests = require("./routes/friend-requests");
 const db = require("./sql/database.js");
 const csurf = require("csurf");
+// const db = require("./sql/database.js");
+const cookieSession = require("cookie-session");
 
-app.use(
-    cookieSession({
-        secret: `Keine Verbesserung ist zu klein oder geringfügig, als dass man sie nicht durchführen sollte.`,
-        maxAge: 1000 * 60 * 60 * 24 * 7 * 6,
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    secret: `Keine Verbesserung ist zu klein oder geringfügig, als dass man sie nicht durchführen sollte.`,
+    maxAge: 1000 * 60 * 60 * 24 * 7 * 6,
+});
+
+app.use(cookieSessionMiddleware);
+io.use((socket, next) => {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(
     express.urlencoded({
@@ -37,6 +46,10 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use("user--------------> ", (req, res, next) => {
     console.log(req.session.user);
     next();
+});
+
+io.on("connection", (socket) => {
+    console.log(`socket with the id ${socket.id} is now connected`);
 });
 
 app.use("/api/auth", auth);
@@ -69,7 +82,7 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
 

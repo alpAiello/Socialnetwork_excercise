@@ -7,11 +7,14 @@ import { Provider } from "react-redux";
 import reduxPromise from "redux-promise";
 import reducer from "./reducer";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { io } from "socket.io-client";
 
 const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(reduxPromise))
 );
+
+const socket = io();
 
 const theme = createMuiTheme({
     palette: {
