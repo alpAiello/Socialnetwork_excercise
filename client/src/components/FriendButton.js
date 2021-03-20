@@ -12,7 +12,7 @@ function FriendButton(props) {
         currentStatus = currentStatus.data.status;
         console.log("current", currentStatus);
         setStatus(currentStatus);
-    }, []);
+    }, [status]);
 
     const clickHandler = async (event) => {
         if (event === "send") {

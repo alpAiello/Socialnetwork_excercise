@@ -14,7 +14,8 @@ router.get("/friends-and-wannabes", async (req, res) => {
     res.json(result.rows);
 });
 router.get("/:otherID", async (req, res) => {
-    const userID = String(req.session.user.id);
+    console.log("START----------------------------------------------------");
+    const userID = req.session.user.id;
     console.log("param", req.params);
     const otherID = req.params.otherID;
     console.log("userID,otherID------------------->", userID, otherID);
@@ -39,7 +40,6 @@ router.get("/:otherID", async (req, res) => {
         if (accepted === true) {
             res.json({ status: STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED });
         } else {
-            console.log("ok further");
             if (userID === from_id) {
                 res.json({ status: STATUS_FRIENDS_REQUEST_REQUEST_BY_ME });
             } else {
@@ -86,4 +86,8 @@ router.post("/unfriend/:otherID", async (req, res) => {
     res.json({ ...newStatus, status: STATUS_FRIENDS_REQUEST_NO_REQUEST });
 });
 
-module.exports = router;
+(module.exports = router),
+    (exports.STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED = STATUS_FRIENDS_REQUEST_REQUEST_ACCEPTED),
+    (exports.STATUS_FRIENDS_REQUEST_REQUEST_TO_ME = STATUS_FRIENDS_REQUEST_REQUEST_TO_ME),
+    (exports.STATUS_FRIENDS_REQUEST_REQUEST_BY_ME = STATUS_FRIENDS_REQUEST_REQUEST_BY_ME),
+    (exports.STATUS_FRIENDS_REQUEST_NO_REQUEST = STATUS_FRIENDS_REQUEST_NO_REQUEST);

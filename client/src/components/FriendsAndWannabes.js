@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { loadFriends } from "../action";
+import { acceptFriend, unfriend, loadFriends } from "../action";
 import { Link } from "react-router-dom";
+import { UNFRIEND, ACCEPT_FRIEND } from "../action";
 
 const FriendsAndWannabes = (props) => {
     const dispatch = useDispatch();
@@ -11,6 +12,22 @@ const FriendsAndWannabes = (props) => {
     const friendsAndWannabes = useSelector((state) => state.friendsAndWannabes);
     console.log("friends...", friendsAndWannabes);
 
+    const statusButton = (status, otherID) => {
+        return (
+            <button
+                onClick={async () => {
+                    if (status) {
+                        await dispatch(unfriend(otherID));
+                    } else {
+                        await dispatch(acceptFriend(otherID));
+                    }
+                }}
+            >
+                {status ? UNFRIEND : ACCEPT_FRIEND}
+            </button>
+        );
+    };
+
     const generatePeopleDiv = (friend) => {
         return (
             <div key={friend.id}>
@@ -19,6 +36,7 @@ const FriendsAndWannabes = (props) => {
                     to {friend.firstname}`s profile
                 </Link>
                 <p>{friend.firstname + " " + friend.lastname}</p>
+                {statusButton(friend.accepted, friend.id)}
             </div>
         );
     };
