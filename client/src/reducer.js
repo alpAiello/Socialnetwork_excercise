@@ -1,7 +1,4 @@
-import axios from "./superAxios";
-import action from "./action";
 import { LOAD_FRIENDS, ACCEPT_FRIEND, UNFRIEND } from "./action";
-import FriendsAndWannabes from "./components/FriendsAndWannabes";
 
 function reducer(state = {}, action = "") {
     if (action.type == LOAD_FRIENDS) {

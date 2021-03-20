@@ -75,3 +75,5 @@ E
 client/src/reducer.js,0/7/0759c54f9cae3da9e9f58d8099fa4fa9ab7c5ac7
 [
 +client/src/components/FriendsAndWannabes.js,a/0/a0b810440ee65f1b2c37a46a39c7d9f35161bc68
+J
+server/sql/mockFriends.sql,b/8/b80e55cc4dc1f935bbc9aaefd05d693047a86b95
