@@ -24,8 +24,15 @@ function reducer(state = {}, action = "") {
     if (action.type == UNFRIEND) {
         const statusFriendRequest = action.payload;
         let friendsAndWannabes = state.friendsAndWannabes.filter((friend) => {
-            friend.id === statusFriendRequest.from_id ||
-                friend.id === statusFriendRequest.to_id;
+            console.log("friend.id", friend.id);
+            console.log(
+                "statusFriendRequest.from_id",
+                statusFriendRequest.from_id
+            );
+            return (
+                friend.id !== statusFriendRequest.from_id &&
+                friend.id !== statusFriendRequest.to_id
+            );
         });
         console.log("newState-------------------->", friendsAndWannabes);
         return { ...state, friendsAndWannabes };

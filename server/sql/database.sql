@@ -35,5 +35,3 @@ SELECT * FROM users;
 SELECT * FROM reset_codes;
 SELECT * FROM friend_requests;
 
-INSERT INTO friend_requests (from_id, to_id, accepted)
-VALUES (201,2,true), (3,201,true), (201,4,false), (5,201,false);
