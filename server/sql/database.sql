@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS reset_codes;
 DROP TABLE IF EXISTS friend_requests;
+DROP TABLE IF EXISTS chat_messages;
+
 CREATE TABLE IF NOT EXISTS users
 	(
     id serial unique PRIMARY KEY ,
@@ -34,7 +36,7 @@ CREATE TABLE if not EXISTS friend_requests
 CREATE TABLE if not EXISTS chat_messages
 (
     id serial unique PRIMARY KEY ,
-    user_id varchar(256),
+    user_id INTEGER references users(id),
     message_text varchar(5000),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

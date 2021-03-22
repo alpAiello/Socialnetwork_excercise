@@ -8,13 +8,21 @@ import reduxPromise from "redux-promise";
 import reducer from "./reducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { io } from "socket.io-client";
+import { init, socket } from "./init_socket";
 
 const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(reduxPromise))
 );
 
-const socket = io();
+init(store);
+socket.on("messages", (messages) => {
+    console.log(messages);
+    socket.emit("new message", "hello server");
+});
+socket.on("new message", async (data) => {
+    console.log(data);
+});
 
 const theme = createMuiTheme({
     palette: {
@@ -36,9 +44,11 @@ if (location.pathname === "/welcome") {
     );
 } else {
     let elem = (
-        <Provider store={store}>
-            <App />
-        </Provider>
+        <ThemeProvider theme={theme}>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </ThemeProvider>
     );
     ReactDOM.render(elem, document.querySelector("main"));
 }

@@ -32,3 +32,15 @@ export const unfriend = async (otherID) => {
         payload: statusFriendRequest,
     };
 };
+export const chatMessages = async (msgs) => {
+    return {
+        type: "messages",
+        msgs,
+    };
+};
+export const chatMessage = async (msg) => {
+    return {
+        type: "messages",
+        msgs: [msg],
+    };
+};

@@ -7,7 +7,6 @@ const io = require("socket.io")(server, {
     allowRequest: (req, callback) =>
         callback(null, req.headers.referer.startsWith("http://localhost:3000")),
 });
-
 const auth = require("./routes/auth.js");
 const profile = require("./routes/profile.js");
 const friendRequests = require("./routes/friend-requests");
@@ -48,8 +47,26 @@ app.use("user--------------> ", (req, res, next) => {
     next();
 });
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
     console.log(`socket with the id ${socket.id} is now connected`);
+    const userID = socket.request.session.user.id;
+    const userObject = await db.getUserByID(userID);
+    console.log("result", userObject.rows[0]);
+    console.log("userID", userID);
+    const messageObject = await db.getLastMessages();
+    console.log(
+        "result",
+        messageObject.rows.map((message) => message.message_text)
+    );
+    socket.emit("messages", messageObject.rows);
+    socket.on("new message", async (data) => {
+        console.log(data);
+        const messageReturn = await db.addNewMessage(userID, data);
+        io.emit("new message", {
+            ...messageReturn.rows[0],
+            ...userObject.rows[0],
+        });
+    });
 });
 
 app.use("/api/auth", auth);

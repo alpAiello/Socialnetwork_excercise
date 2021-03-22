@@ -1,6 +1,6 @@
 import { LOAD_FRIENDS, ACCEPT_FRIEND, UNFRIEND } from "./action";
 
-function reducer(state = {}, action = "") {
+function reducer(state = { messages: [] }, action = "") {
     if (action.type == LOAD_FRIENDS) {
         const friendsAndWannabes = action.payload;
         return { ...state, friendsAndWannabes };
@@ -35,6 +35,12 @@ function reducer(state = {}, action = "") {
         return { ...state, friendsAndWannabes };
     }
 
+    if (action.type == "messages") {
+        return {
+            ...state,
+            messages: [...state.messages, ...action.msgs],
+        };
+    }
     return state;
 }
 export default reducer;

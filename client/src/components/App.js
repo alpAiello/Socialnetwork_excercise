@@ -38,7 +38,16 @@ class App extends Component {
                             this.setState({ uploaderVisible: true })
                         }
                     />
-                    <Link to={"/friends-and-wannabes"}>Friends & Requests</Link>
+                    <ul>
+                        <li>
+                            <Link to={"/friends-and-wannabes"}>
+                                Friends & Requests
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/search"}>Search Friends</Link>
+                        </li>
+                    </ul>
                     {uploaderVisible && (
                         <PicUploader
                             uploadDoneHandler={(newPictureURL) =>
