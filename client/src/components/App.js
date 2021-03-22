@@ -6,6 +6,7 @@ import Profile from "./Profile";
 import OtherProfile from "./OtherProfile";
 import Search from "./Search";
 import FriendsAndWannabes from "./FriendsAndWannabes";
+import Chat from "./Chat";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
@@ -47,6 +48,9 @@ class App extends Component {
                         <li>
                             <Link to={"/search"}>Search Friends</Link>
                         </li>
+                        <li>
+                            <Link to={"/chat"}>Chat</Link>
+                        </li>
                     </ul>
                     {uploaderVisible && (
                         <PicUploader
@@ -68,6 +72,7 @@ class App extends Component {
                         component={FriendsAndWannabes}
                     />
                     <Route path={"/search"} exact component={Search} />
+                    <Route path={"/chat"} exact component={Chat} />
                     <Route
                         path={"/"}
                         exact

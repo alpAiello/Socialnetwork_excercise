@@ -64,6 +64,7 @@ io.on("connection", async (socket) => {
         const messageReturn = await db.addNewMessage(userID, data);
         io.emit("new message", {
             ...messageReturn.rows[0],
+            message_id: messageReturn.rows[0].id,
             ...userObject.rows[0],
         });
     });

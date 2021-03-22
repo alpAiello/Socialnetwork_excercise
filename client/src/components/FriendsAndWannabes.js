@@ -30,30 +30,32 @@ const FriendsAndWannabes = (props) => {
 
     const generatePeopleDiv = (friend) => {
         return (
-            <div key={friend.id}>
+            <div className="friendOrWannabe" key={friend.id}>
                 <img alt="profile picture" src={friend.profile_picture_url} />
-                <Link to={"/user/" + friend.id}>
-                    to {friend.firstname}`s profile
-                </Link>
-                <p>{friend.firstname + " " + friend.lastname}</p>
+                <div className="requestsProfileBox">
+                    <p>{friend.firstname + " " + friend.lastname}</p>
+                    <Link to={"/user/" + friend.id}>
+                        to {friend.firstname}`s profile
+                    </Link>
+                </div>
                 {statusButton(friend.accepted, friend.id)}
             </div>
         );
     };
 
     return (
-        <>
-            <div>friends</div>
+        <div className="FriendsAndWannabes">
+            <h1>Friends</h1>
             {friendsAndWannabes &&
                 friendsAndWannabes
                     .filter((friend) => friend.accepted === true)
                     .map((friend) => generatePeopleDiv(friend))}
-            <div>requests</div>
+            <h1>Requests</h1>
             {friendsAndWannabes &&
                 friendsAndWannabes
                     .filter((friend) => friend.accepted === false)
                     .map((friend) => generatePeopleDiv(friend))}
-        </>
+        </div>
     );
 };
 

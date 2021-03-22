@@ -25,7 +25,7 @@ function Search() {
     }, [query]);
 
     return (
-        <div>
+        <div className="Search">
             <label htmlFor="search">Search People</label>
             <input
                 id="search"
@@ -34,23 +34,26 @@ function Search() {
                     setQuery(event.target.value);
                 }}
             />
-            <div className="userList">
-                <p>Profile</p>
-                <p>Firstname</p>
-                <p>Lastname</p>
-                <p>Bio</p>
+            <div className="searchHeading">
+                <h2>Pic</h2>
+                <h2>Name</h2>
+                <h2>Bio</h2>
             </div>
             {users.map((user) => {
                 return (
-                    <div key={user.id} className="userList">
-                        <Link to={{ pathname: "/user/" + user.id }}>
+                    <div key={user.id} className="searchResults">
+                        <Link
+                            className="linkImage"
+                            to={{ pathname: "/user/" + user.id }}
+                        >
                             <img
                                 src={user.profile_picture_url}
                                 alt="profile-picture"
                             />
                         </Link>
-                        <p>{user.firstname}</p>
-                        <p>{user.lastname}</p>
+                        <p>
+                            {user.firstname} {user.lastname}
+                        </p>
                         <p>{user.bio}</p>
                     </div>
                 );

@@ -15,18 +15,10 @@ body {
 }
 .App {
 }
-.userList{
-    height: 60px
-}
 
 .ProfilePic img{
     object-fit: cover;
     width: inherit;
-    height: inherit;
-}
-.userList img {
-    object-fit: cover;
-    width: 60px;
     height: inherit;
 }
 .OtherProfile {
@@ -51,7 +43,66 @@ body {
     flex-direction: column;
     width: 50%;
 }
-.userList {
-    display: flex;
-    justify-content: space-around;
+
+.Chat, .searchResults, .searchHeading{
+    display: grid;
+    margin:2px;
+}
+.friendOrWannabe{
+    display:flex;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    height: 130px;
+    margin: 10px;
+    border: black 1px solid;
+}
+.friendOrWannabe img{
+    object-fit: cover;
+    width: 110px;
+    height: 110px;
+    margin: 10px 10px 10px 10px;
+    border: black 1px solid;
+}
+.friendOrWannabe button{
+    margin: 10px;
+    height: 30px;
+
+}
+.Chat{
+    grid-template-columns: 70px 1fr 4fr;
+    align-items: center;
+}
+.searchResults{
+    grid-template-columns: 130px 1fr 4fr;
+}
+.searchHeading{
+    grid-template-columns: 130px 1fr 4fr;
+}
+.searchResults img{
+    object-fit: cover;
+    width: inherit;
+    height: inherit;
+    border: black 1px solid;
+    padding:10px 10px 10px 10px;
+}
+.Chat p, .searchResults p{
+    margin: 0 10px 0 0;
+    border: black 1px solid;
+    padding: 10px;
+    height: 100px
+}
+.Chat img, .Chat p{
+    border: black 1px solid;
+    padding:10px 10px 10px 10px;
+    height: 30px;
+    margin: 10px 10px 0 0;
+}
+.linkImage{
+    height: 100px;
+    width: 100px;
+}
+.requestsProfileBox{
+    display:flex;
+    flex-direction: column;
 }
