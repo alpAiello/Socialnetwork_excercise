@@ -1,4 +1,5 @@
 import axios from "./superAxios";
+import { socket } from "./init_socket";
 
 export const LOAD_FRIENDS = "load friends";
 export const ACCEPT_FRIEND = "accept friend";
@@ -42,5 +43,12 @@ export const chatMessage = async (msg) => {
     return {
         type: "messages",
         msgs: [msg],
+    };
+};
+
+export const newMessage = async (msg) => {
+    socket.emit("new message", msg);
+    return {
+        type: "new message",
     };
 };

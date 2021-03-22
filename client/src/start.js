@@ -16,13 +16,6 @@ const store = createStore(
 );
 
 init(store);
-socket.on("messages", (messages) => {
-    console.log(messages);
-    socket.emit("new message", "hello server");
-});
-socket.on("new message", async (data) => {
-    console.log(data);
-});
 
 const theme = createMuiTheme({
     palette: {

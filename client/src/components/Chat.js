@@ -1,17 +1,22 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { newMessage } from "../action";
 
-const Chat = (props) => {
+const chatMessagesDiv = (message) => {
+    return (
+        <div className="Chat" key={message.message_id}>
+            <img alt="profile picture" src={message.profile_picture_url} />
+            <p>{message.firstname + " " + message.lastname}</p>
+            <p>{message.message_text}</p>
+        </div>
+    );
+};
+
+export const Chat = (props) => {
     const chatMessages = useSelector((state) => state.messages);
+    const [messageDraft, setMessageDraft] = useState("");
 
-    const chatMessagesDiv = (message) => {
-        return (
-            <div className="Chat" key={message.message_id}>
-                <img alt="profile picture" src={message.profile_picture_url} />
-                <p>{message.firstname + " " + message.lastname}</p>
-                <p>{message.message_text}</p>
-            </div>
-        );
-    };
+    const dispatch = useDispatch();
 
     console.log("gotmessages", chatMessages);
     console.log(
@@ -28,6 +33,15 @@ const Chat = (props) => {
                     console.log("made div");
                     return chatMessagesDiv(message);
                 })}
+            <div className="newMessage">
+                <input
+                    type="text"
+                    onChange={(event) => setMessageDraft(event.target.value)}
+                />
+                <button onClick={() => dispatch(newMessage(messageDraft))}>
+                    send message
+                </button>
+            </div>
         </div>
     );
 };
