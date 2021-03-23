@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS reset_codes;
 DROP TABLE IF EXISTS friend_requests;
 DROP TABLE IF EXISTS chat_messages;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE IF NOT EXISTS users
 	(
